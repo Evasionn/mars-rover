@@ -10,6 +10,7 @@ export class Rover {
   constructor(xPosition: string, yPosition: string, currentDirection: string) {
     this.currentPosition = new Coordinate(Number(xPosition), Number(yPosition));
     this.currentDirection = directionMap.get(currentDirection);
+    console.debug('Rover Initialized');
   }
 
   getCurrentLocation = () => {
@@ -18,20 +19,26 @@ export class Rover {
 
   move = () => {
     // TODO ADD COLLISION CONTROLS
+    console.debug('Rover is moving forward');
     this.currentPosition = Orientations[this.currentDirection].forward(this.currentPosition);
   };
 
   turnLeft = () => {
+    console.debug('Rover is turning left');
     this.currentDirection = Orientations[this.currentDirection].left();
   };
 
   turnRight = () => {
+    console.debug('Rover is turning right');
     this.currentDirection = Orientations[this.currentDirection].right();
   };
 
   run = (commandString: string) => {
     const commands = new CommandParser(commandString).buildCommandList();
-    commands.forEach((command) => command.execute(this));
+    commands.forEach((command) => {
+      console.debug('Calling ', command.commandName);
+      command.execute(this);
+    });
 
     this.getCurrentLocation();
   };

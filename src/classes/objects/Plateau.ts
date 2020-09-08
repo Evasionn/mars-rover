@@ -6,5 +6,6 @@ export class Plateau {
 
   constructor(xCoordinate: string, yCoordinate: string) {
     this.upperRightCorner = new Coordinate(Number(xCoordinate), Number(yCoordinate));
+    console.debug('Plateau Initialized');
   }
 }

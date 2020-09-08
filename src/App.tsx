@@ -9,7 +9,7 @@ const mars = new Mars();
 
 export const App: React.FC = () => {
   const [inputVal, setInputVal] = useState<string>('');
-  const output: Array<string> = [];
+  const [output] = useState<Array<string>>([]);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleRunButton = () => {
@@ -38,9 +38,9 @@ export const App: React.FC = () => {
       </form>
 
       <div id="output">
-        {output.map((s) => (
-          <div>
-            ${s}
+        {output.map((s, index) => (
+          <div key={index}>
+            {s}
             <br />
           </div>
         ))}
