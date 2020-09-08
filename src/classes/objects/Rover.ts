@@ -2,14 +2,18 @@ import { Coordinate } from './Coordinate';
 import { Direction, directionMap } from './Direction';
 import { Orientations } from './Oriention';
 import { CommandParser } from '../helpers';
+import { Plateau } from './Plateau';
 
 export class Rover {
   currentPosition: Coordinate;
   currentDirection: Direction;
 
-  constructor(xPosition: string, yPosition: string, currentDirection: string) {
+  plateau: Plateau;
+
+  constructor(xPosition: string, yPosition: string, currentDirection: string, plateau: Plateau) {
     this.currentPosition = new Coordinate(Number(xPosition), Number(yPosition));
     this.currentDirection = directionMap.get(currentDirection);
+    this.plateau = plateau;
     console.debug('Rover Initialized');
   }
 
@@ -18,9 +22,12 @@ export class Rover {
   };
 
   move = () => {
-    // TODO ADD COLLISION CONTROLS
-    console.debug('Rover is moving forward');
+    console.debug('Rover is trying to move forward');
     this.currentPosition = Orientations[this.currentDirection].forward(this.currentPosition);
+    if (!this.plateau.isInsidePlateau(this.currentPosition)) {
+      console.debug("Rover can't move");
+      this.currentPosition = Orientations[this.currentDirection].backward(this.currentPosition);
+    }
   };
 
   turnLeft = () => {

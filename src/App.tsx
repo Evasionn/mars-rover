@@ -18,7 +18,7 @@ export const App: React.FC = () => {
       mars.plateau = new Plateau(coordinates[0], coordinates[1]);
     } else if (!mars.rover) {
       const coordinates = inputVal?.trim().split(' ');
-      mars.rover = new Rover(coordinates[0], coordinates[1], coordinates[2]);
+      mars.rover = new Rover(coordinates[0], coordinates[1], coordinates[2], mars.plateau);
     } else {
       mars.rover.run(inputVal);
       output.push(mars.rover.getCurrentLocation());

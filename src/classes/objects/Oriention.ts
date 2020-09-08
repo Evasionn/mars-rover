@@ -13,6 +13,10 @@ export const Orientations = {
     left: () => {
       return Direction.WEST;
     },
+    backward: (coordinate: Coordinate) => {
+      coordinate.yCoordinate--;
+      return coordinate;
+    },
   },
   [Direction.EAST]: {
     forward: (coordinate: Coordinate) => {
@@ -24,6 +28,10 @@ export const Orientations = {
     },
     left: () => {
       return Direction.NORTH;
+    },
+    backward: (coordinate: Coordinate) => {
+      coordinate.xCoordinate--;
+      return coordinate;
     },
   },
   [Direction.SOUTH]: {
@@ -37,6 +45,10 @@ export const Orientations = {
     left: () => {
       return Direction.EAST;
     },
+    backward: (coordinate: Coordinate) => {
+      coordinate.yCoordinate++;
+      return coordinate;
+    },
   },
   [Direction.WEST]: {
     forward: (coordinate: Coordinate) => {
@@ -48,6 +60,10 @@ export const Orientations = {
     },
     left: () => {
       return Direction.SOUTH;
+    },
+    backward: (coordinate: Coordinate) => {
+      coordinate.xCoordinate++;
+      return coordinate;
     },
   },
 };
