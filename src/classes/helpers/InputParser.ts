@@ -1,7 +1,4 @@
-import { ICommand } from './ICommand';
-import { LeftCommand } from './LeftCommand';
-import { RightCommand } from './RightCommand';
-import { MoveCommand } from './MoveCommand';
+import { ICommand, LeftCommand, MoveCommand, RightCommand } from '../commands';
 
 export class CommandParser {
   commandString: string;

@@ -1,6 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { Plateau } from './classes/Plateau';
-import { Rover } from './classes/Rover';
+import { Plateau, Rover } from './classes';
 
 class Mars {
   plateau: Plateau | undefined;
@@ -10,9 +9,10 @@ const mars = new Mars();
 
 export const App: React.FC = () => {
   const [inputVal, setInputVal] = useState<string>('');
+  const output: Array<string> = [];
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleRunButton = (inputVal: string) => {
+  const handleRunButton = () => {
     if (!mars.plateau) {
       const coordinates = inputVal?.trim().split(' ');
       mars.plateau = new Plateau(coordinates[0], coordinates[1]);
@@ -21,20 +21,31 @@ export const App: React.FC = () => {
       mars.rover = new Rover(coordinates[0], coordinates[1], coordinates[2]);
     } else {
       mars.rover.run(inputVal);
+      output.push(mars.rover.getCurrentLocation());
+      mars.rover = undefined;
     }
-
-    // TODO after first calculation create new rover and continue calculations
 
     setInputVal('');
     inputRef.current?.focus();
   };
   return (
-    <form onSubmit={(e) => e.preventDefault()}>
-      <input ref={inputRef} type="text" value={inputVal} onChange={(e) => setInputVal(e.target.value)} />
-      <button type="submit" onClick={() => handleRunButton(inputVal)}>
-        Run
-      </button>
-    </form>
+    <>
+      <form onSubmit={(e) => e.preventDefault()}>
+        <input ref={inputRef} type="text" value={inputVal} onChange={(e) => setInputVal(e.target.value)} />
+        <button type="submit" onClick={handleRunButton}>
+          Run
+        </button>
+      </form>
+
+      <div id="output">
+        {output.map((s) => (
+          <div>
+            ${s}
+            <br />
+          </div>
+        ))}
+      </div>
+    </>
   );
 };
 

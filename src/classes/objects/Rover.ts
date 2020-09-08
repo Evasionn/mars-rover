@@ -1,7 +1,7 @@
 import { Coordinate } from './Coordinate';
 import { Direction, directionMap } from './Direction';
 import { Orientations } from './Oriention';
-import { CommandParser } from './InputParser';
+import { CommandParser } from '../helpers';
 
 export class Rover {
   currentPosition: Coordinate;
@@ -12,8 +12,8 @@ export class Rover {
     this.currentDirection = directionMap.get(currentDirection);
   }
 
-  printCurrent = () => {
-    console.log('Current POSITION', `${this.currentPosition.toString()} ${this.currentDirection.valueOf()}`);
+  getCurrentLocation = () => {
+    return `${this.currentPosition.toString()} ${this.currentDirection.valueOf()}`;
   };
 
   move = () => {
@@ -33,6 +33,6 @@ export class Rover {
     const commands = new CommandParser(commandString).buildCommandList();
     commands.forEach((command) => command.execute(this));
 
-    this.printCurrent();
+    this.getCurrentLocation();
   };
 }
